@@ -6,87 +6,99 @@
 /*   By: abukh <abukh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/22 12:18:30 by abukh             #+#    #+#             */
-/*   Updated: 2026/08/22 13:06:11 by abukh            ###   ########.fr       */
+/*   Updated: 2026/09/10 15:27:09 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	*free_all(char **arr, size_t j)
+static int	is_sep(char c, char *charset)
 {
-	while (j--)
-		free(arr[j]);
-	free(arr);
-	return (NULL);
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (charset[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-static size_t	count_words(char const *s, char c)
+static int	count_words(char *str, char *charset)
 {
-	size_t	words;
+	int	i;
+	int	words;
 
+	i = 0;
 	words = 0;
-	while (*s)
+	while (str[i])
 	{
-		while (*s == c)
-			s++;
-		if (*s)
+		while (str[i] && is_sep(str[i], charset))
+			i++;
+		if (str[i])
 			words++;
-		while (*s && *s != c)
-			s++;
+		while (str[i] && !is_sep(str[i], charset))
+			i++;
 	}
 	return (words);
 }
 
-static char	*fill_word(char const *word, char delim)
+static char	*word_dup(char *str, int len)
 {
-	char	*new;
-	size_t	i;
+	char	*word;
+	int		i;
 
-	i = 0;
-	while (word[i] && word[i] != delim)
-		i++;
-	new = malloc(i + 1);
-	if (!new)
+	word = (char *)malloc(sizeof(char) * (len + 1));
+	if (!word)
 		return (NULL);
-	new[i] = '\0';
-	while (i--)
-		new[i] = word[i];
-	return (new);
-}
-
-static char	**fill_arr(char **arr, char const *s, char c)
-{
-	size_t	i;
-	size_t	j;
-
 	i = 0;
-	j = 0;
-	while (s[i])
+	while (i < len)
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i])
-		{
-			arr[j] = fill_word(&s[i], c);
-			if (!arr[j])
-				return (free_all(arr, j));
-			j++;
-		}
-		while (s[i] && s[i] != c)
-			i++;
+		word[i] = str[i];
+		i++;
 	}
-	arr[j] = NULL;
-	return (arr);
+	word[i] = '\0';
+	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+static char	**free_all(char **tab, int j)
 {
-	char	**arr;
+	while (j > 0)
+	{
+		j--;
+		free(tab[j]);
+	}
+	free(tab);
+	return (NULL);
+}
 
-	if (!s)
+char	**ft_split(char *str, char *charset)
+{
+	char	**tab;
+	int		len;
+	int		j;
+
+	tab = (char **)malloc(sizeof(char *) * (count_words(str, charset) + 1));
+	if (!tab)
 		return (NULL);
-	arr = malloc((count_words(s, c) + 1) * sizeof(char *));
-	if (!arr)
-		return (NULL);
-	return (fill_arr(arr, s, c));
+	j = 0;
+	while (*str)
+	{
+		while (*str && is_sep(*str, charset))
+			str++;
+		len = 0;
+		while (str[len] && !is_sep(str[len], charset))
+			len++;
+		if (len == 0)
+			break ;
+		tab[j] = word_dup(str, len);
+		if (!tab[j])
+			return (free_all(tab, j));
+		str += len;
+		j++;
+	}
+	tab[j] = NULL;
+	return (tab);
 }

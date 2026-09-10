@@ -1,39 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/09 16:45:58 by abukh             #+#    #+#             */
-/*   Updated: 2026/09/10 15:18:14 by abukh            ###   ########.fr       */
+/*   Created: 2026/09/10 15:18:35 by abukh             #+#    #+#             */
+/*   Updated: 2026/09/10 15:18:45 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	pa(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
-
-	if (!b || !*b)
-		return ;
-	temp = *b;
-	*b = (*b)->next;
-	temp->next = *a;
-	*a = temp;
-	write(1, "pa\n", 3);
-}
-
-void	pb(t_stack **a, t_stack **b)
-{
-	t_stack	*temp;
-
-	if (!a || !*a)
-		return ;
-	temp = *a;
-	*a = (*a)->next;
-	temp->next = *b;
-	*b = temp;
-	write(1, "pb\n", 3);
-}
