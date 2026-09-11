@@ -6,7 +6,7 @@
 /*   By: abukh <abukh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/08 15:46:07 by denibyko          #+#    #+#             */
-/*   Updated: 2026/09/10 14:07:24 by abukh            ###   ########.fr       */
+/*   Updated: 2026/09/11 13:28:03 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ typedef struct s_stack
 void	sa(t_stack **a);
 void	sb(t_stack **b);
 void	ss(t_stack **a, t_stack **b);
+void	pa(t_stack **a, t_stack **b);
+void	pb(t_stack **a, t_stack **b);
+void	ra(t_stack **a);
+void	rb(t_stack **b);
+void	rr(t_stack **a, t_stack **b);
 
 #endif

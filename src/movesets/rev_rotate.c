@@ -1,53 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   rev_rotate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/10 15:18:35 by abukh             #+#    #+#             */
-/*   Updated: 2026/09/11 13:27:28 by abukh            ###   ########.fr       */
+/*   Created: 2026/09/11 13:28:51 by abukh             #+#    #+#             */
+/*   Updated: 2026/09/11 13:45:30 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_stack **a)
+void	rra(t_stack **a)
 {
-	t_stack	*first;
 	t_stack	*last;
+	t_stack	*second_last;
 
 	if (!a || !*a || !(*a)->next)
 		return ;
-	first = *a;
 	last = *a;
-	*a = (*a)->next;
+	second_last = NULL;
 	while (last->next)
+	{
+		second_last = last;
 		last = last->next;
-	last->next = first;
-	first->next = NULL;
-	write(1, "ra\n", 3);
+	}
+	second_last->next = NULL;
+	last->next = *a;
+	*a = last;
+	write(1, "rra\n", 4);
 }
 
-void	rb(t_stack **b)
+void	rrb(t_stack **b)
 {
-	t_stack	*first;
 	t_stack	*last;
+	t_stack	*second_last;
 
 	if (!b || !*b || !(*b)->next)
 		return ;
-	first = *b;
 	last = *b;
-	*b = (*b)->next;
+	second_last = NULL;
 	while (last->next)
+	{
+		second_last = last;
 		last = last->next;
-	last->next = first;
-	first->next = NULL;
-	write(1, "rb\n", 3);
+	}
+	second_last->next = NULL;
+	last->next = *b;
+	*b = last;
+	write(1, "rrb\n", 4);
 }
 
-void	rr(t_stack **a, t_stack **b)
+void	rrr(t_stack **a, t_stack **b)
 {
-	ra(a);
-	rb(b);
+	rra(a);
+	rrb(b);
 }

@@ -6,7 +6,7 @@
 /*   By: denibyko <denibyko@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 14:58:39 by denibyko          #+#    #+#             */
-/*   Updated: 2026/09/10 15:11:45 by denibyko         ###   ########.fr       */
+/*   Updated: 2026/09/10 15:39:35 by denibyko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	count_size(char **av)
 	i = 0;
 	while (av[i])
 	{
-		split = ft_split(av[i], ' ');
+		split = ft_split(av[i], " 	");
 		if (!split)
 			return (0);
 		j = 0;
