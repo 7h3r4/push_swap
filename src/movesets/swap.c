@@ -5,45 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/08 15:38:02 by denibyko          #+#    #+#             */
-/*   Updated: 2026/09/09 16:46:10 by abukh            ###   ########.fr       */
+/*   Created: 2026/09/14 14:21:42 by abukh             #+#    #+#             */
+/*   Updated: 2026/09/14 14:21:42 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_stack **a)
+static void	swap(t_stack **stack)
 {
 	t_stack	*first;
 	t_stack	*second;
 
-	if (!a || !*a || !(*a)->next)
+	if (!*stack || !(*stack)->next)
 		return ;
-	first = *a;
-	second = (*a)->next;
+	first = *stack;
+	second = (*stack)->next;
 	first->next = second->next;
 	second->next = first;
-	*a = second;
-	write(1, "sa\n", 3);
+	*stack = second;
 }
 
-void	sb(t_stack **b)
+void	sa(t_ps *ps)
 {
-	t_stack	*first;
-	t_stack	*second;
-
-	if (!b || !*b || !(*b)->next)
-		return ;
-	first = *b;
-	second = (*b)->next;
-	first->next = second->next;
-	second->next = first;
-	*b = second;
-	write(1, "sb\n", 3);
+	swap(&ps->a);
+	ps->count.sa++;
+	if (!ps->silent)
+		write(1, "sa\n", 3);
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	sb(t_ps *ps)
 {
-	sa(a);
-	sb(b);
+	swap(&ps->b);
+	ps->count.sb++;
+	if (!ps->silent)
+		write(1, "sb\n", 3);
+}
+
+void	ss(t_ps *ps)
+{
+	swap(&ps->a);
+	swap(&ps->b);
+	ps->count.ss++;
+	if (!ps->silent)
+		write(1, "ss\n", 3);
 }

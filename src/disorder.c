@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   disorder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denibyko <denibyko@student.42prague.com    +#+  +:+       +#+        */
+/*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/08 14:35:49 by denibyko          #+#    #+#             */
-/*   Updated: 2026/09/09 14:16:56 by denibyko         ###   ########.fr       */
+/*   Updated: 2026/09/12 10:41:07 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ double	compute_disorder(int *stack, size_t size_a)
 	size_t	i;
 	size_t	j;
 
+	if (size_a < 2)
+		return (0.0);
 	i = 0;
 	mistakes = 0;
 	total_pairs = 0;
@@ -35,14 +37,4 @@ double	compute_disorder(int *stack, size_t size_a)
 		i++;
 	}
 	return ((double)mistakes / (double)total_pairs);
-}
-
-int	main(void)
-{
-	double	disorder;
-	int	stack[] = {1, 2, 4, -10};
-	size_t	size_a = 4;
-
-	disorder = compute_disorder(stack, size_a);
-	printf("%.2f", disorder);
 }

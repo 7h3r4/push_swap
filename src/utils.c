@@ -3,57 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denibyko <denibyko@student.42prague.com    +#+  +:+       +#+        */
+/*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/08 16:24:30 by denibyko          #+#    #+#             */
-/*   Updated: 2026/09/08 18:35:31 by denibyko         ###   ########.fr       */
+/*   Created: 2026/09/12 09:39:09 by denibyko          #+#    #+#             */
+/*   Updated: 2026/09/12 10:44:32 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int check_overflow(long nb, int sign)
+void	error_message(void)
 {
-	if (sign == 1 && nb > INT_MAX)
-		return (0);
-	if (sign == -1 && nb > -(long)INT_MIN)
-		return (0);
-	return (1);
+	write(2, "Error\n", 6);
 }
 
-int ft_atoi(const char *nptr, int *result)
+void	free_split(char **split)
 {
-	int sign;
-	long nb;
+	int	i;
 
-	sign = 1;
-	nb = 0;
-	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
+	i = 0;
+	while (split[i])
 	{
-		if (*nptr == '-')
-			sign *= -1;
-		nptr++;
+		free(split[i]);
+		i++;
 	}
-	if (!(*nptr >= '0' && *nptr <= '9'))
-		return (0);
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		nb = (nb * 10) + (*nptr - '0');
-		nptr++;
-		if (!check_overflow(nb, sign))
-			return (0);
-	}
-	*result = (int)(nb * sign);
-	return (1);
-}
-
-int	main(void)
-{
-	int	nb;
-
-	nb = 42;
-	printf("%d\n", ft_atoi("2147483647", &nb));
-	printf("%d", nb);
+	free(split);
 }

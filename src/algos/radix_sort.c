@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   issort.c                                           :+:      :+:    :+:   */
+/*   radix_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,39 +12,45 @@
 
 #include "push_swap.h"
 
-static size_t	find_insert_pos(t_stack *b, int val)
+static int	count_bits(int size)
 {
-	size_t	i;
-	int		prev;
-	t_stack	*cur;
+	int	bits;
 
-	if (!b)
-		return (0);
-	cur = b;
-	while (cur->next)
-		cur = cur->next;
-	prev = cur->val;
-	i = 0;
-	cur = b;
-	while (cur)
-	{
-		if (prev > val && val > cur->val)
-			return (i);
-		prev = cur->val;
-		cur = cur->next;
-		i++;
-	}
-	return (find_max_index(b));
+	bits = 0;
+	while ((size - 1) >> bits)
+		bits++;
+	return (bits);
 }
 
-void	insertion_sort(t_ps *ps)
+static void	radix_pass(t_ps *ps, int bit, int size)
 {
-	while (ps->a)
+	int	i;
+
+	i = 0;
+	while (i < size)
 	{
-		rotate_b_to_top(ps, find_insert_pos(ps->b, ps->a->val));
-		pb(ps);
+		if ((ps->a->index >> bit) & 1)
+			ra(ps);
+		else
+			pb(ps);
+		i++;
 	}
-	rotate_b_to_top(ps, find_max_index(ps->b));
 	while (ps->b)
 		pa(ps);
+}
+
+void	radix_sort(t_ps *ps)
+{
+	int	size;
+	int	bits;
+	int	bit;
+
+	size = stack_size(ps->a);
+	bits = count_bits(size);
+	bit = 0;
+	while (bit < bits && !is_sorted(ps->a))
+	{
+		radix_pass(ps, bit, size);
+		bit++;
+	}
 }

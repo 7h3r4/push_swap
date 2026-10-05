@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoi_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/19 14:05:56 by abukh             #+#    #+#             */
-/*   Updated: 2026/09/12 10:29:38 by abukh            ###   ########.fr       */
+/*   Created: 2026/09/11 17:02:25 by denibyko          #+#    #+#             */
+/*   Updated: 2026/09/12 10:29:50 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_sign(const char **str, int *sign)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi_parse(const char *str, int *result)
 {
 	int		sign;
 	int		digit;
@@ -54,5 +54,6 @@ int	ft_atoi(const char *str)
 	}
 	if (*str != '\0')
 		return (0);
+	*result = (int)(nb * sign);
 	return (1);
 }

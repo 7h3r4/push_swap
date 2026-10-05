@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abukh <abukh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/22 15:43:25 by abukh             #+#    #+#             */
-/*   Updated: 2026/08/22 15:57:54 by abukh            ###   ########.fr       */
+/*   Created: 2026/09/14 14:21:42 by abukh             #+#    #+#             */
+/*   Updated: 2026/09/14 14:21:42 by abukh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,3 @@ void	ft_putnbr_fd(int n, int fd)
 	c = nb % 10 + '0';
 	write(fd, &c, 1);
 }
-
-// #include <fcntl.h>
-// int	main(void)
-// {
-// 	int	fd = open("./testing", O_WRONLY);
-// 	ft_putnbr_fd(-123123124, fd);
-// 	close(fd);
-// 	return (0);
-// }

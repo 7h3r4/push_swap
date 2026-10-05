@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   issort.c                                           :+:      :+:    :+:   */
+/*   small_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abukh <abukh@student.42prague.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,39 +12,42 @@
 
 #include "push_swap.h"
 
-static size_t	find_insert_pos(t_stack *b, int val)
+void	sort_three(t_ps *ps)
 {
-	size_t	i;
-	int		prev;
-	t_stack	*cur;
+	int	first;
+	int	second;
+	int	third;
 
-	if (!b)
-		return (0);
-	cur = b;
-	while (cur->next)
-		cur = cur->next;
-	prev = cur->val;
-	i = 0;
-	cur = b;
-	while (cur)
+	first = ps->a->val;
+	second = ps->a->next->val;
+	third = ps->a->next->next->val;
+	if (first > second && second < third && first < third)
+		sa(ps);
+	else if (first > second && second > third)
 	{
-		if (prev > val && val > cur->val)
-			return (i);
-		prev = cur->val;
-		cur = cur->next;
-		i++;
+		sa(ps);
+		rra(ps);
 	}
-	return (find_max_index(b));
+	else if (first > second && second < third && first > third)
+		ra(ps);
+	else if (first < second && second > third && first < third)
+	{
+		sa(ps);
+		ra(ps);
+	}
+	else if (first < second && second > third && first > third)
+		rra(ps);
 }
 
-void	insertion_sort(t_ps *ps)
+void	sort_five(t_ps *ps)
 {
-	while (ps->a)
+	while (stack_size(ps->a) > 3)
 	{
-		rotate_b_to_top(ps, find_insert_pos(ps->b, ps->a->val));
+		rotate_a_to_top(ps, find_min_index(ps->a));
 		pb(ps);
 	}
-	rotate_b_to_top(ps, find_max_index(ps->b));
+	if (!is_sorted(ps->a))
+		sort_three(ps);
 	while (ps->b)
 		pa(ps);
 }
